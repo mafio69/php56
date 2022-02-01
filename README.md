@@ -1,45 +1,71 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+*Tested on ubuntu 20.04
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
-
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
-
----
-
-## Edit a file
-
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
-
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+**For the application to work, it is necessary to run dockerfile or docker-compose**
+**To run on the system, docker and docker-compose must be installed**
 
 ---
 
-## Create a file
+# Note: All commands are executed in the directory where docker-compose.yml is located
 
-Next, you’ll add a new file to this repository.
+#### Linux
 
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
+1.[install docker ubuntu](https://docs.docker.com/compose/install)
+2.[install docker-compose ubuntu](https://docs.docker.com/compose/install)
 
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
+#### WIN
+
+1.[install docker win 10](https://docs.docker.com/docker-for-windows/install/)
+
+**NOTE `<EXAMPLE>` To be replaced with the appropriate values**
+**`exit 0` or `exit status 0` In linux it means `[OK]` any other number is an error**
+
+## RUN APPLICATION
+
+---
+### ROAD MAP:
+
+### First run
+
+Build `./.env` the file from `./.env_example`
+
+- terminal in container  `cd /main`
+- terminal in container next `composer install -o`
+- terminal in container end   `exit` out container terminal
+
+* terminal in host `docker-compose down`
+* terminal in host `docker-compose up --build` . **It works!**
+
+### Next starts
+
+`docker-compose up --build` or faster `docker-compose up`
+
+##**NOTE**
 
 ---
 
-## Clone a repository
+- in case of port conflicts, database name ... it is possible to change the value in the `./.env`  file in the
+  .env_example**_ file
+- we do not change `./.env` file ! This file is common to all environments and users. Placed in the repository
+  according to the Symfony documentation
+### Links according to the .env_example file:
+NOTE: RUN `docker ps` The list will include the port, e.g. 8070:8080 the first is the host port, e.g. http://localhost:8070   
+used in the browser should display a running application  
+app: http://localhost:<WEB_PORT>  
+database: localhost:<DATABASE_PORT_LOCAL> user: <DATABASE_USER>(test)   
+password:<DATABASE_PASSWORD>(1234) database:<DATABASE_NAME>(ccfound)
 
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
 
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
+### Links according to the .env_example file:
 
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+NOTE: RUN `docker ps` The list will include the port, e.g. 8070:8080 the first is the host port, e.g. http://localhost:8070
+used in the browser should display a running application
+app: http://localhost:<WEB_PORT>
+database: localhost:<DATABASE_PORT_LOCAL> user: <DATABASE_USER>(test)
+password:<DATABASE_PASSWORD>(1234) database:<DATABASE_NAME>(test)
+
+## WARNING
+
+### All discovered passwords are examples, all addresses also apply to the local network, after deploying locally, they should be changed.
+
+[mafio69](mailto:mf1969@gmail.com?subject=[GitHub]%20Docker%20Repo)
+

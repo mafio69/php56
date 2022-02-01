@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  database:
+    container_name: mysql-ww
+    ports:
+      - "${DB_PORT_LOCAL}:${DB_PORT}"
+    image: mariadb
+    restart: always
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_USER=${DB_USERNAME}
+      - MARIADB_DATABASE=${DB_DATABASE}
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - DB_PASSWORD=${DB_PASSWORD}
+
+  app:
+    container_name: app-ww
+    build:
+      context: ./
+    ports:
+      - "${WEB_PORT_LOCAL}:80"
+    image: mafio69/php72
+    depends_on:
+      - database
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_USER=${DB_USERNAME}
+      - MARIADB_DATABASE=${DB_DATABASE}
+      - DB_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - ./:/var/www
+    links:
+      - database:mysql
+    env_file:
+      - .env
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:${WEB_PORT}" ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+
+  mailtrap:
+    container_name: mailtrap-ww
+    image: mailhog/mailhog
+    logging:
+      driver: 'none'  # disable saving logs
+    ports:
+      - "1030:1025" # smtp server
+      - "8035:8025" # web ui
+
