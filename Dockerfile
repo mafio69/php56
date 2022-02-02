@@ -14,20 +14,32 @@ ENV   DEBIAN_FRONTEND=noninteractive \
 
 RUN apt update && apt upgrade -y && apt install -y apt-utils \
     && apt install -y lsb-release ca-certificates apt-transport-https software-properties-common \
+    && apt install -y libpng-dev \
+    && apt install -y zlib1g-dev  \
     && apt install -y wget curl cron git unzip gnupg2 build-essential && apt install -y nginx \
-    && apt-get install -y libmcrypt-dev\
-    && pecl install mcrypt-1.0.0 \
     && apt install -y libicu-dev && apt-get install g++ && rm -rf /tmp/pear \
     && apt -y full-upgrade && apt -y autoremove && ln -s /var/log/nginx/ `2>&1 nginx -V | grep -oP "(?<=--prefix=)\S+"`/logs \
-    && apt-get update && apt-get install -y supervisor && mkdir -p /var/log/supervisor \
+    && apt install -y libc-client-dev libkrb5-dev && rm -r /var/lib/apt/ \
+    && apt-get update && apt-get install -y libmcrypt-dev\
+    && apt-get install -y supervisor && mkdir -p /var/log/supervisor \
+    && mkdir -p /usr/local/jpg \
+    && mkdir -p /usr/local/free \
     && docker-php-source extract \
         && pecl install xdebug \
         && pecl install -o -f redis \
         && pecl install mcrypt-1.0.1 \
+        && pecl install mailparse-3.1.0 \
     && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
     && docker-php-ext-configure mysqli --with-mysqli=mysqlnd \
+    && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
+    && docker-php-ext-configure docker-php-ext-configure gd --with-gd --with-webp-dir --with-jpeg-dir=/usr/local/jpg \
+                                    --with-png-dir --with-zlib-dir --with-xpm-dir --with-freetype-dir=/usr/local/free \
+                                    --enable-gd-native-ttf \
+    && docker-php-ext-install mbstring \
     && docker-php-ext-install mysqli \
+    && docker-php-ext-install gd \
     && docker-php-ext-install pdo_mysql \
+    && docker-php-ext-install imap \
     && docker-php-source delete \
         &&  curl -fsSLO "$SUPERCRONIC_URL" \
         && echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
