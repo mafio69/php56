@@ -1,0 +1,7 @@
+.orders-thead-cell{
+	background:#FFEB00; text-align:center; font-weight: bold;
+}
+
+.invoices-thead-cell{
+	background:#428bca; color:#FFFFFF;  font-weight: bold; border: 1px solid #D6D6D6;
+}

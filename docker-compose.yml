@@ -37,7 +37,7 @@ services:
       - PHP_DATE_TIMEZONE=${PHP_DATE_TIMEZONE}
       - XDEBUG_MODE=${XDEBUG_MODE}
     volumes:
-      - ./:/main
+      - ./main:/main
     links:
       - database:mysql
     env_file:
