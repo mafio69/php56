@@ -5,22 +5,22 @@ services:
     container_name: mysql-ww
     ports:
       - "${DB_PORT_LOCAL}:${DB_PORT}"
-    image: mariadb
+    image: mysql:8.0.27
     restart: always
     environment:
-      # ALLOW_EMPTY_PASSWORD is recommended only for development.
-      - ALLOW_EMPTY_PASSWORD=yes
-      - MARIADB_USER=${DB_USERNAME}
-      - MARIADB_DATABASE=${DB_DATABASE}
-      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
-      - DB_PASSWORD=${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_USER: $${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+    cap_add:
+      - SYS_NICE
 
   app:
     container_name: app-ww
     build:
       context: ./
     ports:
-      - "${WEB_PORT_LOCAL}:80"
+      - "${WEB_PORT_LOCAL}:${WEB_PORT}"
     image: mafio69/php72
     depends_on:
       - database
@@ -39,7 +39,7 @@ services:
     env_file:
       - .env
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:${WEB_PORT}" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:${WEB_PORT_LOCAL}" ]
       interval: 1m30s
       timeout: 10s
       retries: 3
