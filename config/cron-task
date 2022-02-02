@@ -1,0 +1,4 @@
+# crontab -e
+
+*/2 * * * * echo "Hello world 01" > /dev/stdout
+* * * * * echo $DATE > /dev/stdout

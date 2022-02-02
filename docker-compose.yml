@@ -32,8 +32,12 @@ services:
       - MARIADB_USER=${DB_USERNAME}
       - MARIADB_DATABASE=${DB_DATABASE}
       - DB_PASSWORD=${DB_PASSWORD}
+      - APP_ENV=${APP_ENV}
+      - DISPLAY_ERROR=${DISPLAY_ERROR}
+      - PHP_DATE_TIMEZONE=${PHP_DATE_TIMEZONE}
+      - XDEBUG_MODE=${XDEBUG_MODE}
     volumes:
-      - ./:/var/www
+      - ./:/main
     links:
       - database:mysql
     env_file:
@@ -46,10 +50,17 @@ services:
 
   mailtrap:
     container_name: mailtrap-ww
-    image: mailhog/mailhog
+    image: mailhog/mailhog:v1.0.1
     logging:
       driver: 'none'  # disable saving logs
     ports:
       - "1030:1025" # smtp server
       - "8035:8025" # web ui
 
+  redis:
+    image: bitnami/redis:6.2.6-debian-10-r117
+    container_name: redis-tools
+    ports:
+      - "7004:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
