@@ -14,14 +14,14 @@ ENV   DEBIAN_FRONTEND=noninteractive \
 
 RUN apt update && apt upgrade -y && apt install -y apt-utils \
     && apt install -y lsb-release ca-certificates apt-transport-https software-properties-common \
-    && apt install -y libpng-dev \
+    && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
     && apt install -y zlib1g-dev  \
     && apt install -y wget curl cron git unzip gnupg2 build-essential && apt install -y nginx \
     && apt install -y libicu-dev && apt-get install g++ && rm -rf /tmp/pear \
     && apt -y full-upgrade && apt -y autoremove && ln -s /var/log/nginx/ `2>&1 nginx -V | grep -oP "(?<=--prefix=)\S+"`/logs \
     && apt install -y libc-client-dev libkrb5-dev && rm -r /var/lib/apt/ \
     && apt-get update && apt-get install -y libmcrypt-dev\
-    && apt-get install -y supervisor && mkdir -p /var/log/supervisor \
+    && apt-get update && apt-get install -y supervisor && mkdir -p /var/log/supervisor \
     && mkdir -p /usr/local/jpg \
     && mkdir -p /usr/local/free \
     && docker-php-source extract \
@@ -32,20 +32,18 @@ RUN apt update && apt upgrade -y && apt install -y apt-utils \
     && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
     && docker-php-ext-configure mysqli --with-mysqli=mysqlnd \
     && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
-    && docker-php-ext-configure docker-php-ext-configure gd --with-gd --with-webp-dir --with-jpeg-dir=/usr/local/jpg \
-                                    --with-png-dir --with-zlib-dir --with-xpm-dir --with-freetype-dir=/usr/local/free \
-                                    --enable-gd-native-ttf \
-    && docker-php-ext-install mbstring \
-    && docker-php-ext-install mysqli \
-    && docker-php-ext-install gd \
-    && docker-php-ext-install pdo_mysql \
-    && docker-php-ext-install imap \
-    && docker-php-source delete \
-        &&  curl -fsSLO "$SUPERCRONIC_URL" \
-        && echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
-        && chmod +x "$SUPERCRONIC" \
-        && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
-        && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic \
+    && docker-php-ext-configure gd \
+        && docker-php-ext-install mbstring \
+        && docker-php-ext-install mysqli \
+        && docker-php-ext-install pdo_mysql \
+        && docker-php-ext-install imap \
+        && docker-php-ext-install gd \
+        && docker-php-source delete \
+    && curl -fsSLO "$SUPERCRONIC_URL" \
+    && echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
+    && chmod +x "$SUPERCRONIC" \
+    && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
+    && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic \
     && curl -sS https://getcomposer.org/installer | php \
     && cp composer.phar /usr/local/bin/composer  \
     && mv composer.phar /usr/bin/composer
