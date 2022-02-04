@@ -55,7 +55,7 @@ RUN apt update && apt upgrade -y && apt install -y apt-utils \
     && cp composer.phar /usr/local/bin/composer  \
     && mv composer.phar /usr/bin/composer
 
-COPY ./main /main
+# COPY ./main /main
 COPY config/custom.ini /usr/local/etc/php/conf.d/custom.ini
 COPY config/dockerFile/nginx.conf /etc/nginx/nginx.conf
 COPY config/dockerFile/mime.types /etc/nginx/mime.types
@@ -64,7 +64,7 @@ COPY config/supervisord-main.conf /etc/supervisord.conf
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY config/cron-task /etc/cron.d/crontask
 
-WORKDIR /main
+# WORKDIR /main
 
 STOPSIGNAL SIGQUIT
 EXPOSE 8080

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="runCompose" type="docker-deploy" factoryName="docker-compose.yml" singleton="false" server-name="Docker">
+  <configuration default="false" name="HardRunCompose" type="docker-deploy" factoryName="docker-compose.yml" singleton="false" server-name="Docker">
     <deployment type="docker-compose.yml">
       <settings>
         <option name="buildKitEnabledForCompose" value="true" />
