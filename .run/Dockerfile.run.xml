@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Dockerfile" type="docker-deploy" factoryName="dockerfile" singleton="false" server-name="Docker">
+  <configuration default="false" name="Dockerfile" type="docker-deploy" factoryName="dockerfile" singleton="false" server-name="Docker2">
     <deployment type="dockerfile">
       <settings>
-        <option name="imageTag" value="mafio69/php56" />
+        <option name="imageTag" value="mafio69/php72" />
         <option name="buildKitEnabled" value="true" />
         <option name="containerName" value="php72" />
         <option name="portBindings">

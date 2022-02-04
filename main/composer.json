@@ -21,15 +21,18 @@
       "tedivm/fetch": "^0.7.1",
       "iio/libmergepdf": "^3.1",
       "doctrine/dbal": "2.5.*",
-      "tymon/jwt-auth": "0.4.*",
-      "guzzlehttp/guzzle": "~6.0",
-      "setasign/fpdf": "^1.8",
+		"tymon/jwt-auth": "0.4.*",
+		"guzzlehttp/guzzle": "~6.0",
+		"setasign/fpdf": "^1.8",
 		"phpmailer/phpmailer": "~5.2",
 		"tomgrohl/laravel4-php71-encrypter": "^1.1",
 		"willdurand/email-reply-parser": "^2.9",
 		"vaibhavpandeyvpz/phemail": "^1.0",
 		"php-mime-mail-parser/php-mime-mail-parser": "3.0.4",
 		"zbateson/mail-mime-parser": "^2.0"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "*"
 	},
 	"autoload": {
 		"classmap": [
@@ -40,7 +43,7 @@
 			"app/database/seeds",
 			"app/tests/TestCase.php"
 		],
-        "psr-4": {
+		"psr-4": {
             "Idea\\": "app/Idea"
         },
 		"files": ["app/includes/helpers.php"]

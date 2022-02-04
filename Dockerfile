@@ -15,7 +15,7 @@ ENV   DEBIAN_FRONTEND=noninteractive \
       DB_DATABASE=${DB_DATABASE} \
       DB_PASSWORD=${DB_PASSWORD} \
       DB_HOST=${DB_HOST}
-
+RUN export PATH=$PATH:/main/vendor/autoload.php:/main/vendor/
 RUN apt update && apt upgrade -y && apt install -y apt-utils \
     && apt install -y lsb-release ca-certificates apt-transport-https software-properties-common \
     && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
@@ -28,23 +28,20 @@ RUN apt update && apt upgrade -y && apt install -y apt-utils \
     && apt-get update && apt-get install -y supervisor && mkdir -p /var/log/supervisor \
     && mkdir -p /usr/local/jpg \
     && mkdir -p /usr/local/free \
-    && apt-get -y install gcc make autoconf libc-dev pkg-config \
-    && apt-get -y install -y libmcrypt-dev \
+    && apt-get install gcc make autoconf libc-dev pkg-config \
+    && apt-get install -y libmcrypt-dev\
     && pecl channel-update pecl.php.net \
     && docker-php-source extract \
         && pecl install xdebug-2.5.5 \
         && pecl install redis-2.2.8 \
-        && pecl install --nodeps mailparse-2.1.6 \
-    && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
-    && docker-php-ext-configure mysqli --with-mysqli=mysqlnd \
+        && pecl install mailparse-2.1.6 \
     && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
     && docker-php-ext-configure gd  \
         && docker-php-ext-install mbstring \
-        && docker-php-ext-install mysqli \
-        && docker-php-ext-install pdo_mysql \
         && docker-php-ext-install imap \
         && docker-php-ext-install gd \
         && docker-php-ext-install mcrypt \
+        && docker-php-ext-install mysql mysqli pdo pdo_mysql \
         && docker-php-source delete \
     && curl -fsSLO "$SUPERCRONIC_URL" \
     && echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
@@ -55,7 +52,8 @@ RUN apt update && apt upgrade -y && apt install -y apt-utils \
     && cp composer.phar /usr/local/bin/composer  \
     && mv composer.phar /usr/bin/composer
 
-# COPY ./main /main
+COPY ./main /main
+COPY config/docker-php-ext-mailparse.ini /usr/local/etc/php/conf.d/docker-php-ext-mailparse.ini
 COPY config/custom.ini /usr/local/etc/php/conf.d/custom.ini
 COPY config/dockerFile/nginx.conf /etc/nginx/nginx.conf
 COPY config/dockerFile/mime.types /etc/nginx/mime.types
@@ -64,7 +62,7 @@ COPY config/supervisord-main.conf /etc/supervisord.conf
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY config/cron-task /etc/cron.d/crontask
 
-# WORKDIR /main
+WORKDIR /main
 
 STOPSIGNAL SIGQUIT
 EXPOSE 8080

@@ -1,20 +1,6 @@
 version: '3'
 
 services:
-  database:
-    container_name: mysql-ww
-    ports:
-      - "${DB_PORT_LOCAL}:${DB_PORT}"
-    image: mysql:8.0.27
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_DATABASE}
-    cap_add:
-      - SYS_NICE
-
   app:
     container_name: app-ww
     build:
@@ -32,6 +18,7 @@ services:
       - DB_USERNAME=${DB_USERNAME}
       - DB_DATABASE=${DB_DATABASE}
       - DB_PASSWORD=${DB_PASSWORD}
+      - DB_PORT=${DB_PORT}
       - DB_HOST=${DB_HOST}
       - APP_ENV=${APP_ENV}
       - DISPLAY_ERROR=${DISPLAY_ERROR}
@@ -48,20 +35,35 @@ services:
       interval: 1m30s
       timeout: 10s
       retries: 3
+#
+#  mailtrap:
+#    container_name: mailtrap-ww
+#    image: mailhog/mailhog:v1.0.1
+#    logging:
+#      driver: 'none'  # disable saving logs
+#    ports:
+#      - "1030:1025" # smtp server
+#      - "8035:8025" # web ui
+#
+#  redis:
+#    image: bitnami/redis:6.2.6-debian-10-r117
+#    container_name: redis-tools
+#    ports:
+#      - "7004:6379"
+#    environment:
+#      - ALLOW_EMPTY_PASSWORD=yes
 
-  mailtrap:
-    container_name: mailtrap-ww
-    image: mailhog/mailhog:v1.0.1
-    logging:
-      driver: 'none'  # disable saving logs
+  database:
+    container_name: mysql-ww
+    expose:
+      - "${DB_PORT}"
     ports:
-      - "1030:1025" # smtp server
-      - "8035:8025" # web ui
-
-  redis:
-    image: bitnami/redis:6.2.6-debian-10-r117
-    container_name: redis-tools
-    ports:
-      - "7004:6379"
+      - "${DB_PORT_LOCAL}:${DB_PORT}"
+    image: mysql:5.6
+    restart: always
     environment:
-      - ALLOW_EMPTY_PASSWORD=yes
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+
