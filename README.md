@@ -9,7 +9,7 @@
 
 #### Linux
 
-1.[install docker ubuntu](https://docs.docker.com/compose/install)
+1.[install docker ubuntu](https://docs.docker.com/engine/install/ubuntu/)
 2.[install docker-compose ubuntu](https://docs.docker.com/compose/install)
 
 #### WIN
