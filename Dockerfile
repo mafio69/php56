@@ -54,10 +54,7 @@ RUN apt update && apt upgrade -y && apt install -y apt-utils \
 
 COPY ./main /main
 COPY config/docker-php-ext-mailparse.ini /usr/local/etc/php/conf.d/docker-php-ext-mailparse.ini
-COPY config/custom.ini /usr/local/etc/php/conf.d/custom.ini
-COPY config/dockerFile/nginx.conf /etc/nginx/nginx.conf
-COPY config/dockerFile/mime.types /etc/nginx/mime.types
-COPY config/dockerFile/enabled-app.conf /etc/nginx/conf.d/enabled-app.conf
+
 COPY config/supervisord-main.conf /etc/supervisord.conf
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY config/cron-task /etc/cron.d/crontask
