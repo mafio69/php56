@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<GETVEHICLEDTA>
-  <ANSWER><getVehicleDataReturn><Error><ErrorCde>ERR0003</ErrorCde><ErrorDes>Brak umowy dla wskazanych parametrów!</ErrorDes></Error></getVehicleDataReturn></ANSWER>
-</GETVEHICLEDTA>
