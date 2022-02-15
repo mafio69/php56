@@ -26,18 +26,21 @@
 
 ### First run
 
-Build `./.env` the file from `./.env_example`
+Build `./.env` the file from `./.env_example`  [host]
+###sometimes it doesn't work for commands on the host add 'sudo'  (`sudo docker ....`) in front
 
-- terminal in container  `cd /main`
-- terminal in container next `composer install -o`
-- terminal in container end   `exit` out container terminal
-
-* terminal in host `docker-compose down`
-* terminal in host `docker-compose up --build` . **It works!**
+* terminal in host `docker-compose down` [host]
+* terminal in host `docker-compose up --build` . [host]   
+* **It works!**
+- list container `docker ps`  (take the container id) [host]
+- insert the id of the container you want to use `docker exec -it <CONTAINER_ID> bash` [host]
+- terminal in container  `cd /main` [docker]
+- terminal in container next `composer install -o`[docker]
+- terminal in container end   `exit` out container terminal [docker]
 
 ### Next starts
 
-`docker-compose up --build` or faster `docker-compose up`
+`docker-compose up --build` or faster `docker-compose up` [host]
 
 ##**NOTE**
 
