@@ -26,19 +26,19 @@ ___
 ---
 ### ROAD MAP:
 
-### First run
+### First run  
 
-Build `./.env` the file from `./.env_example`  [host]
-###Sometimes it doesn't work for commands on the host add 'sudo'  (`sudo docker ....`) in front
-###Paste your application in the `/main`directory, server nginx will look for `index.php` in the `/main/public` directory
-* terminal in host `docker-compose down` [host]
-* terminal in host `docker-compose up --build` . [host]   
- **It works!**
-- list container `docker ps`  (take the container id) [host]
-- insert the id of the container you want to use `docker exec -it <CONTAINER_ID> bash` [host]
-- terminal in container  `cd /main` [docker]
-- terminal in container next `composer install -o`[docker]
-- terminal in container end   `exit` out container terminal [docker]
+Build `./.env` the file from `./.env_example`  [host]  
+###Sometimes it doesn't work for commands on the host add 'sudo'  (`sudo docker ....`) in front  
+###Paste your application in the `/main`directory, server nginx will look for `index.php` in the `/main/public` directory  
+* terminal in host `docker-compose down` [host]  
+* terminal in host `docker-compose up --build` . [host]     
+ **It works!**  
+- list container `docker ps`  (take the container id) [host]  
+- insert the id of the container you want to use `docker exec -it <CONTAINER_ID> bash` [host]  
+- terminal in container  `cd /main` [docker]  
+- terminal in container next `composer install -o`[docker]  
+- terminal in container end   `exit` out container terminal [docker]  
 
 ### Next starts
 
