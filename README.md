@@ -72,4 +72,3 @@ ___
 ### All discovered passwords are examples, all addresses also apply to the local network, after deploying locally, they should be changed.
 
 [mafio69](mailto:mf1969@gmail.com?subject=[GitHub]%20Docker%20Repo)
-
