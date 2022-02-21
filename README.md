@@ -55,8 +55,8 @@ Build `./.env` the file from `./.env_example`  [host]
 NOTE: RUN `docker ps` The list will include the port, e.g. 8070:8080 the first is the host port, e.g. http://localhost:8070   
 used in the browser should display a running application  
 app: http://localhost:<WEB_PORT_LOCAL>  
-database: localhost:<DATABASE_PORT_LOCAL> user: <DATABASE_USER>(test)   
-password:<DATABASE_PASSWORD>(1234) database:<DATABASE_NAME>(test)
+database: localhost:<DB_PORT_LOCAL> user: <DB_USER>(test)   
+password:<DB_PASSWORD>(1234) database:<DB_NAME>(test)
 
 
 ### Links according to the .env_example file:
@@ -64,8 +64,8 @@ password:<DATABASE_PASSWORD>(1234) database:<DATABASE_NAME>(test)
 NOTE: RUN `docker ps` The list will include the port, e.g. 8070:8080 the first is the host port, e.g. http://localhost:8070
 used in the browser should display a running application
 app: http://localhost:<WEB_PORT_LOCAL>
-database: localhost:<DATABASE_PORT_LOCAL> user: <DATABASE_USER>(test)
-password:<DATABASE_PASSWORD>(1234) database:<DATABASE_NAME>(test)
+database: localhost:<DB_PORT_LOCAL> user: <DB_USER>(test)
+password:<DB_PASSWORD>(1234) database:<DB_NAME>(test)
 ___
 ## WARNING
 
