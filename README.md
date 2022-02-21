@@ -16,7 +16,7 @@ ___
 
 ### WIN
 
-1.[install docker win 10](https://docs.docker.com/docker-for-windows/install/)
+1.[install docker win ??](https://docs.docker.com/docker-for-windows/install/)
 
 **NOTE `<EXAMPLE>` To be replaced with the appropriate values**
 **`exit 0` or `exit status 0` In linux it means `[OK]` any other number is an error**
