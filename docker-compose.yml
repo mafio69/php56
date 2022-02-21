@@ -2,7 +2,7 @@ version: '3'
 
 services:
   app:
-    container_name: app-ww
+    container_name: app-$POSTFIX
     build:
       context: ./
     ports:
@@ -37,7 +37,7 @@ services:
       retries: 3
 #
 #  mailtrap:
-#    container_name: mailtrap-ww
+#    container_name: mailtrap-$POSTFIX
 #    image: mailhog/mailhog:v1.0.1
 #    logging:
 #      driver: 'none'  # disable saving logs
@@ -54,7 +54,7 @@ services:
 #      - ALLOW_EMPTY_PASSWORD=yes
 
   database:
-    container_name: mysql-ww
+    container_name: mysql-$POSTFIX
     expose:
       - "${DB_PORT}"
     ports:
